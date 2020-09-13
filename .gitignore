@@ -8,3 +8,12 @@ ansible/.vagrant/machines/netpi/virtualbox/synced_folders
 ansible/.vagrant/machines/netpi/virtualbox/vagrant_cwd
 ansible/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory
 ansible/.vagrant/rgloader/loader.rb
+ansible/.vagrant/machines/default/virtualbox/action_provision
+ansible/.vagrant/machines/default/virtualbox/action_set_name
+ansible/.vagrant/machines/default/virtualbox/box_meta
+ansible/.vagrant/machines/default/virtualbox/creator_uid
+ansible/.vagrant/machines/default/virtualbox/id
+ansible/.vagrant/machines/default/virtualbox/index_uuid
+ansible/.vagrant/machines/default/virtualbox/synced_folders
+ansible/.vagrant/machines/default/virtualbox/vagrant_cwd
+host
