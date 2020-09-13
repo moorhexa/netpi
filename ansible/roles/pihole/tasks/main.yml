@@ -1,0 +1,75 @@
+- name: install git
+  apt:
+    package: git
+    state: present
+  become: true
+
+- name: clone pihole repositiry
+  git:
+    repo: 'https://github.com/pi-hole/pi-hole.git'
+    dest: /home/pi/pihole
+    clone: yes
+  become: yes
+
+- name: mkdir /etc/pihole/
+  command: mkdir /etc/pihole
+  become: yes
+
+- name: touch /etc/pihole/setupVars.conf
+  command: touch /etc/pihole/setupVars.conf
+  become: yes
+
+- name: generate pihole install config
+  blockinfile:
+    path: /etc/pihole/setupVars.conf
+    block: |
+      WEBPASSWORD=
+      PIHOLE_INTERFACE=eth0
+      IPV4_ADDRESS="{{ ansible_facts['eth0']['ipv4']['address'] }}"
+      IPV6_ADDRESS=
+      QUERY_LOGGING=true
+      INSTALL_WEB=true
+      DNSMASQ_LISTENING=single
+      PIHOLE_DNS_1=46.182.19.48
+      PIHOLE_DNS_2=89.233.43.71
+      PIHOLE_DNS_3=2a02:2970:1002::18
+      PIHOLE_DNS_4=2a01:3a0:53:53::
+      DNS_FQDN_REQUIRED=true
+      DNS_BOGUS_PRIV=true
+      DNSSEC=true
+      TEMPERATUREUNIT=C
+      WEBUIBOXEDLAYOUT=traditional
+      API_EXCLUDE_DOMAINS=
+      API_EXCLUDE_CLIENTS=
+      API_QUERY_LOG_SHOW=all
+      API_PRIVACY_MODE=false
+  become: yes
+
+- name: install pihole
+  command: bash basic-install.sh --unattended
+  become: yes
+  args:
+    chdir: '/home/pi/pihole/automated install/'
+
+- name: update ufw tcp rules
+  ufw:
+    rule: allow
+    port: '{{ item }}'
+    proto: tcp
+    state: enabled
+  loop:
+    - '53'
+    - '80'
+    - '1194'
+  become: yes
+
+- name: update ufw udp rules
+  ufw:
+    rule: allow
+    port: '{{ item }}'
+    proto: udp
+    state: enabled
+  loop:
+    - '53'
+    - '1194'
+  become: yes

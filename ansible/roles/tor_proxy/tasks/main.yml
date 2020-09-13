@@ -1,0 +1,32 @@
+- name: install tor
+  apt:
+    package: tor
+    state: present
+  become: yes
+
+- name: edit config
+  blockinfile:
+    path: /etc/tor/torrc
+    block: |
+      SocksPort {{ ansible_facts['eth0']['ipv4']['address'] }}:9050
+      SocksPolicy accept {{ ansible_facts['eth0']['ipv4']['network'] }}/24
+      FascistFirewall
+      RunAsDaemon 1
+      DataDirectory /var/lib/tor
+  become: yes
+
+
+
+- name: configre ufw
+  ufw:
+    rule: allow
+    port: '9050'
+    state: enabled
+  become: yes
+
+- name: enable and restart tor
+  systemd:
+    name: tor
+    state: reloaded
+    enabled: yes
+  become: yes

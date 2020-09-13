@@ -1,0 +1,5 @@
+- name: install base packages for server
+  apt:
+    package: ['vim', 'tmux', 'htop', 'zsh', 'ufw']
+    state: present
+  become: true

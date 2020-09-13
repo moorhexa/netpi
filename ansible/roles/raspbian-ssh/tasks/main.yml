@@ -1,0 +1,28 @@
+- name: uploading key from localhost ~/.ssh/id_rsa.pub for user pi
+  authorized_key:
+    user: pi
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+  become: true
+
+- name: disble password login
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: "PasswordAuthentication no"
+    state: present
+    backup: yes
+  become: yes
+
+- name: ufw check ssh 22
+  ufw:
+    rule: allow
+    port: '22'
+    state: enabled
+  become: yes
+
+- name: restart ssh
+  service:
+    name: sshd
+    state: restarted   
+  become: yes

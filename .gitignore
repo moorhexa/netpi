@@ -1,0 +1,10 @@
+ansible/.vagrant/machines/netpi/virtualbox/action_provision
+ansible/.vagrant/machines/netpi/virtualbox/action_set_name
+ansible/.vagrant/machines/netpi/virtualbox/box_meta
+ansible/.vagrant/machines/netpi/virtualbox/creator_uid
+ansible/.vagrant/machines/netpi/virtualbox/id
+ansible/.vagrant/machines/netpi/virtualbox/index_uuid
+ansible/.vagrant/machines/netpi/virtualbox/synced_folders
+ansible/.vagrant/machines/netpi/virtualbox/vagrant_cwd
+ansible/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory
+ansible/.vagrant/rgloader/loader.rb
